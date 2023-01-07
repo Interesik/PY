@@ -74,7 +74,10 @@ class Meadown:
         self.jsondump = self.jsondump[:-2]
         self.jsondump += '\n]}'
         if Helper.args.dir is not None:
-            Helper.logging.info("Saving json and csv to file: " + str(Helper.args.dir) + '/pos.json' + str(Helper.args.dir) + '/alive.csv')
+            Helper.logging.info(
+                "Saving json and to file: " + str(
+                Helper.args.dir) + '/pos.json and '+ str(
+                Helper.args.dir) + '/alive.csv')
             with open(str(Helper.args.dir) + '/pos.json', 'w', encoding='utf-8') as pos_log:
                 pos_log.write(self.jsondump)
 
@@ -82,7 +85,9 @@ class Meadown:
                 writer = csv.writer(alive_csv)
                 writer.writerows(self.list_alive)
         else:
-            Helper.logging.info("Saving json and to file: "+'pos.json and alive.csv')
+            Helper.logging.warning("Did not choose folder to save. Saving "
+                                   "json and csv to file: "
+                                   + 'pos.json and alive.csv')
             with open('pos.json', 'w', encoding='utf-8') as pos_log:
                 pos_log.write(self.jsondump)
 

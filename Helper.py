@@ -2,7 +2,7 @@ import argparse
 import configparser
 from pathlib import Path
 import logging
-# TODO: configparser -c/--config, logging package -l/--log, create package
+
 parser = argparse.ArgumentParser(description="Wolf catch Sheeps game.")
 parser.add_argument('-r', '--rounds', type=int, metavar='', help='Define number of rounds,'
                                                                  ' if not defined game simulated to last sheep.')
@@ -20,11 +20,15 @@ parser.add_argument('-l', '--log', action='store_true', help='enabling this opti
 args = parser.parse_args()
 
 c_parser = configparser.ConfigParser()
-if args.config is not None:
-    c_parser.read(str(args.config))
 if args.log:
     if args.dir is not None:
         args.dir.mkdir(parents=True, exist_ok=True)
         logging.basicConfig(filename=str(args.dir) + '/chase.log', filemode='w', level=logging.DEBUG)
     else:
         logging.basicConfig(filename='chase.log', filemode='w', level=logging.DEBUG)
+
+if args.config is not None:
+    c_parser.read(str(args.config))
+else:
+    logging.warning("Did not set up configuration file, using default")
+
